@@ -6,7 +6,6 @@ import cv2 as cv
 
 # Evento para quando o operador inserir uma imagem modelo manualmente (por aquivo)
 def caixa_mod(janela, valores):
-    print('OK')
     # Garante que a camera esteja desligada
     grav_mod = False
 
@@ -22,6 +21,7 @@ def caixa_mod(janela, valores):
         #janela['escanear_prod'].update(disabled=False)
     except Exception as E:
         # Retorna a excessão/erro, caso algo dê errado
+        bloqueia_chaves = False
         print(f'Erro: {E}.')
         pass
     

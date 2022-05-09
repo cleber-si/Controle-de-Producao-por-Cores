@@ -5,6 +5,7 @@ import contorno
 import processo
 import cv2 as cv
 import numpy as np
+import datetime
 
 
 def caixa_prod(janela, valores, camera_Altura, ncapturas, dpadrao, fpadrao):
@@ -35,14 +36,20 @@ def caixa_prod(janela, valores, camera_Altura, ncapturas, dpadrao, fpadrao):
             janela['cam2'].update(data=processo.cria_canais_cam(img, cor='verde'))
             # Exibe canal azul
             janela['cam3'].update(data=processo.cria_canais_cam(img, cor='azul'))
+            
+            with open(valores['caixa_salva'] + '/log.txt', 'a') as arq:
+                    # Esses prints só irão para o arquivo
+                    print('-'*50, file = arq)
+                    print('Produto', arq_prod, file = arq)
+                    # Comente as duas linhas seguintes se não quiser registrar data e hora no log
+                    now = datetime.datetime.now()
+                    print(str(now), file = arq)
 
-            #processo.processamento(valores['caixa_mod'], arq_prod)
-
-            ncapturas, dpadrao, fpadrao = processo.processamento(valores['caixa_mod'],
+                    # Processa os canais de cores
+                    ncapturas, dpadrao, fpadrao = processo.processamento(valores['caixa_mod'],
                                                 arq_prod, ncapturas, dpadrao, fpadrao,
-                                                valores['confianca'])
-            # janela.FindElement('output').Update('')
-            # processo.imprime_figs(janela['imagem_mod'], processo.cria_canais_modelo(arq_mod))
+                                                    valores['confianca'], arq)
+                                                    
     except Exception as E:
         # Retorna a excessão/erro, caso algo dê errado
         print(f'Erro: {E}.')
@@ -106,6 +113,9 @@ def gravar_prod(janela, captura, tamanhoFrame, valores, y, y_ref, controle_altur
                     # Esses prints só irão para o arquivo
                     print('-'*50, file = arq)
                     print('Produto', cont, file = arq)
+                    # Comente as duas linhas seguintes se não quiser registrar data e hora no log
+                    now = datetime.datetime.now()
+                    print(str(now), file = arq)
 
                     # Processa os canais de cores
                     ncapturas, dpadrao, fpadrao = processo.processamento(arq_mod, frame,
@@ -114,10 +124,10 @@ def gravar_prod(janela, captura, tamanhoFrame, valores, y, y_ref, controle_altur
 
                 # Recebe o nome do arquivo da imagem para ser salva de cada produto
                 arq_prod = valores['caixa_salva'] + '/produto_' + str(cont) + '.png'
+                print(arq_prod)
                 # Salva a imagem
                 cv.imwrite(arq_prod, frameOrig)
-                # Limpa as informações printadas na tela
-                #janela.FindElement('output').Update('')
+
             except Exception as E:
                 print(f'Erro: {E}.\n')
                 pass

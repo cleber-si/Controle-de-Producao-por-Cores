@@ -1,3 +1,14 @@
+'''
+Controle de Produção: atualização de 09 de maio de 2022
+
+Modificações:
+  Correção no bloqueio da chave ao chamar a função evMod.caixa_mod;
+  Correções na leitura de um produto por meio de arquivo;
+  Adição do registro de data e hora na leitura de um produto.
+  
+Aviso: Não use pastas ou arquivos cujo nome carrega caracteres especiais.
+'''
+
 import PySimpleGUI as sg
 import layout
 import cv2 as cv
@@ -16,7 +27,7 @@ camera_Largura  = 240 # 320 # 480 # 640 # 1024 # 1280
 camera_Altura = 180 # 240 # 320 # 480 # 780  # 960
 
 # Indica a captura da webcam
-captura = cv.VideoCapture(0)
+captura = cv.VideoCapture(1)
 #captura.set(3, camera_Largura)
 #captura.set(4, camera_Altura)
 

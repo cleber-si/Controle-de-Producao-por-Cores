@@ -74,6 +74,7 @@ def imprime_figs(elemento, figura):
     else:
         return None
 
+
 # Função para printar e salvar os resultados do processo ao mesmo tempo
 # O arquivo deve ser aberto e fechado fora dela
 def printa_exibe(arq, *argumentos):
@@ -81,8 +82,9 @@ def printa_exibe(arq, *argumentos):
     print(printar)
     arq.write(printar + '\n')
 
+
 def processamento(imagem_pad, imagem_prod, ncapturas, dpadrao, fpadrao, conf, arq, scan=False):
-    # OBTENDO AS IMAGENS
+    # OBTENDO AS IMAGENS 
 
     img0 = cv.imread(imagem_pad)
     img = cv.cvtColor(img0, cv.COLOR_BGR2RGB)
